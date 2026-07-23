@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cómo saber si ganaste?</title>
+    <!-- En el HTML (<head>) -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === VARIABLES DE COLOR === */
+        :root {
+            --bg-color: #f0f4f8;
+            --accent-color: #00b8c6;
+            --text-color: #000000;
+            --card-bg: #ffffff;
+        }
+
+        /* === ESTILOS GENERALES === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        /* === ENCABEZADO === */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* === CONTENEDOR PRINCIPAL (LAYOUT) === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        /* === COLUMNA IZQUIERDA (SEGMENTO 1) === */
+        .segmento-1 {
+            flex: 1 1 600px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .segmento-1 ol {
+            padding-left: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .segmento-1 ol > li {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .segmento-1 ul {
+            font-weight: normal;
+            color: var(--text-color);
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .segmento-1 ul li {
+            margin-bottom: 8px;
+        }
+
+        .segmento-1 a {
+            color: var(--accent-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .segmento-1 a:hover {
+            text-decoration: underline;
+        }
+
+        .tip {
+            background-color: #e6f7f9;
+            padding: 10px;
+            border-left: 4px solid var(--accent-color);
+            margin-top: 10px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* === COLUMNA DERECHA (SEGMENTOS 2 Y 3) === */
+        .columna-derecha {
+            flex: 1 1 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* SEGMENTO 2 */
+        .segmento-2 {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .imagen-placeholder {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #777;
+        }
+
+        .casilla-roja {
+            border: 4px solid #ff4d4d;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            background-color: #fffafa;
+        }
+
+        .casilla-verde {
+            border: 4px solid #4caf50;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            background-color: #f4fff4;
+        }
+
+        /* SEGMENTO 3 */
+        .segmento-3 {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .segmento-3 h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .generador-form {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 150px;
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0095a1;
+        }
+
+        #resultado {
+            background-color: var(--bg-color);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error {
+            color: #ff4d4d !important;
+            font-size: 1rem;
+        }
+
+        /* === RESPONSIVO === */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* CSS para integrar y estilizar la imagen */
+        .imagen-contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            /* Limitamos el ancho máximo de la imagen para que no ocupe todo el espacio si es muy grande */
+            max-width: 300px;
+            margin: 0 auto 20px auto; /* Centra el contenedor y da espacio abajo */
+            padding: 0;
+        }
+
+        /* Estilos específicos para la imagen dentro del contenedor */
+        .segmento-2 .imagen-contenedor img {
+            max-width: 100%; /* Importante para que sea responsiva y no se desborde */
+            height: auto; /* Mantiene la proporción de aspecto */
+            border-radius: 8px; /* Coincide con el estilo de los otros elementos */
+            /* Opcional: añadir un borde sutil para integrarla mejor */
+            /* border: 2px solid #ddd; */
+        }
+
+        /* === SEGMENTO 4: ANUNCIO DEL GANADOR === */
+        .anuncio-ganador {
+            flex: 1 1 100%; /* Hace que tome todo el ancho debajo de las dos columnas */
+            background-color: var(--accent-color); /* Usa el color azul de tu paleta */
+            color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .anuncio-ganador h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffffff; 
+        }
+
+        .anuncio-ganador p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .fecha-sorteo {
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo semitransparente blanco */
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .fecha-sorteo span {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>¿Cómo saber si ganaste?</h1>
+        <h2>¡ SIGUE ESTOS SENCILLOS PASOS !</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- ================= SEGMENTO 1 ================= -->
+        <div class="segmento-1">
+            <ol>
+                <li>Identifica tus números de la suerte
+                    <ul>
+                        <li>Busca tu boleto</li>
+                        <li>Tu folio del boleto es tu número base (por ejemplo, el 045).</li>
+                        <li>Recuerda que tu boleto participa con 5 terminaciones: tu número base y sus números hermanos que terminan igual (siguiendo el ejemplo: 045, 245, 445, 645 y 845)</li>
+                    </ul>
+                </li>
+                <li>Entra al sitio oficial de la Lotería Nacional
+                    <ul>
+                        <li>Abre tu navegador de internet en tu celular o computadora e ingresa al siguiente enlace oficial de la Lotería Nacional, donde se publican los resultados del Sorteo Superior <br>
+                        <a href="https://www.loterianacional.gob.mx/home/index" target="_blank">https://www.loterianacional.gob.mx/home/index</a></li>
+                    </ul>
+                </li>
+                <li>Localiza “consulta los resultados”
+                    <ul>
+                        <li>Da click</li>
+                        <li>Posteriormente da click en “Listas de Premios”</li>
+                        <li>Verifica que en el recuadro inicial aparezca “Octubre 2026”</li>
+                        <li>Busca el boleto con la leyenda “SUPERIOR 2899" o identifica que debajo del mismo aparezca “Viernes 02 de Ocubre de 2026"</li>
+                        <li>Una vez dentro de la lista de resultados</li>
+                    </ul>
+                </li>
+                <li>Identifica si ganaste el 1er o 2do lugar
+                    <ul>
+                        <li>Busca el número asignado al Premio Mayor y al Segundo Premio</li>
+                        <li>1er lugar: Busca la casilla especial que tiene el monto en dinero más alto de toda la hoja normalmente se encuentra en el centro de toda la hoja</li>
+                        <li>2do lugar: Busca la segunda casilla especial que tiene el segundo monto de dinero más alto de toda la hoja.</li>
+                    </ul>
+                    <div class="tip">
+                        TIP: Recuerda que ambas casillas ganadoras contienen leyendas como: “Fue remitido para su venta en su Serie 1, a la Agencia Expendedora“
+                    </div>
+                </li>
+                <li>Revisa los últimos 3 dígitos
+                    <ul>
+                        <li>Mira únicamente los últimos 3 dígitos del número que aparece dentro de la casilla del premio correspondiente (ya sea para el 1.er lugar o el 2.º lugar)</li>
+                        <li>Ejemplo: Si el número del premio es 18247, los últimos tres digitos son 247 (correspondiente al Boleto 047)</li>
+                    </ul>
+                </li>
+                <li>¡Compara con tus números!
+                    <ul>
+                        <li>Verifica si los últimos 3 dígitos coinciden con alguna de las 5 opciones de tu boleto</li>
+                        <li>Si coinciden: ¡Muchas felicidades, ERES EL GANADOR O GANADORA DEL 1er o 2do lugar! (nos pondremos en contacto de inmediato contigo para entregarte tu premio)</li>
+                        <li>Si no coinciden: ¡Agradecemos muchísimo tu apoyo y participación!</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+        <div class="columna-derecha">
+            
+            <!-- ================= SEGMENTO 2 ================= -->
+            <div class="segmento-2">
+                <div class="imagen-contenedor">
+                    <img src="loteria.png" alt="Icono Ilustrativo de Lotería Nacional">                </div>
+                <div class="casilla-roja">
+                    PREMIO MAYOR (1er lugar)
+                </div>
+                <div class="casilla-verde">
+                    SEGUNDO PREMIO (2do lugar)
+                </div>
+            </div>
+
+            <!-- ================= SEGMENTO 3 ================= -->
+            <div class="segmento-3">
+                <h3>Números Hermanos</h3>
+                <p style="margin-bottom: 15px; font-size: 0.95rem;">Ingresa tu folio (del 1 al 200) para generar tus 5 números de participación.</p>
+                
+                <div class="generador-form">
+                    <input type="number" id="inputFolio" min="1" max="200" placeholder="Ej. 001">
+                    <button onclick="generarHermanos()">Conocer</button>
+                </div>
+
+                <div id="resultado">
+                    <!-- Aquí se mostrarán los números generados -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= SEGMENTO 4: ANUNCIO DEL GANADOR ================= -->
+        <div class="anuncio-ganador">
+            <h3>Ganador</h3>
+            <p>En este espacio publicaremos el folio ganador una vez que se realice el sorteo.</p>
+            <div class="fecha-sorteo">
+                <span>Fecha sorteo:</span>
+                <strong>Viernes 02 de Octubre de 2026</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- === LÓGICA DE JAVASCRIPT === -->
+    <script>
+        function generarHermanos() {
+            // Obtenemos el valor del input y el contenedor de resultados
+            const input = document.getElementById('inputFolio').value;
+            const contenedorResultado = document.getElementById('resultado');
+            
+            // Convertimos el valor a un número entero
+            const numeroOriginal = parseInt(input, 10);
+
+            // Validación: Asegurar que el número esté entre 1 y 200
+            if (isNaN(numeroOriginal) || numeroOriginal < 1 || numeroOriginal > 200) {
+                contenedorResultado.innerHTML = '<span class="error">Por favor, ingresa un número válido entre 1 y 200.</span>';
+                return;
+            }
+
+            // Arreglo para guardar los 5 números
+            let hermanos = [];
+
+            // Generar los 5 números sumando 200 en cada iteración
+            for (let i = 0; i < 5; i++) {
+                let numeroGenerado = numeroOriginal + (i * 200);
+                
+                // Formateamos el número para que siempre tenga 3 dígitos (ej: 1 -> 001)
+                let numeroFormateado = String(numeroGenerado).padStart(3, '0');
+                
+                hermanos.push(numeroFormateado);
+            }
+
+            // Mostrar el resultado separado por comas
+            contenedorResultado.innerHTML = hermanos.join(', ');
+        }
+    </script>
+</body>
+</html>
