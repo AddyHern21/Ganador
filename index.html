@@ -10,7 +10,7 @@
         /* === VARIABLES DE COLOR === */
         :root {
             --bg-color: #f0f4f8;
-            --accent-color: #00b8c6;
+            --accent-color: #034b71;
             --text-color: #000000;
             --card-bg: #ffffff;
         }
@@ -199,7 +199,7 @@
         }
 
         button:hover {
-            background-color: #0095a1;
+            background-color: #034b71;
         }
 
         #resultado {
@@ -306,8 +306,7 @@
                     <ul>
                         <li>Busca tu boleto</li>
                         <li>Tu folio del boleto es tu número base (por ejemplo, el 045).</li>
-                        <li>Recuerda que tu boleto participa con 5 terminaciones: tu número base y sus números hermanos que terminan igual (siguiendo el ejemplo: 045, 245, 445, 645 y 845)</li>
-                    </ul>
+                        <li>Recuerda que tu boleto participa con 4 terminaciones: tu número base y sus 3 números hermanos que terminan igual (siguiendo el ejemplo: 045, 295, 545 y 795)</li>                    </ul>
                 </li>
                 <li>Entra al sitio oficial de la Lotería Nacional
                     <ul>
@@ -342,7 +341,7 @@
                 </li>
                 <li>¡Compara con tus números!
                     <ul>
-                        <li>Verifica si los últimos 3 dígitos coinciden con alguna de las 5 opciones de tu boleto</li>
+                        <li>Verifica si los últimos 3 dígitos coinciden con alguna de las 4 opciones de tu boleto</li>
                         <li>Si coinciden: ¡Muchas felicidades, ERES EL GANADOR O GANADORA DEL 1er o 2do lugar! (nos pondremos en contacto de inmediato contigo para entregarte tu premio)</li>
                         <li>Si no coinciden: ¡Agradecemos muchísimo tu apoyo y participación!</li>
                     </ul>
@@ -368,10 +367,10 @@
             <!-- ================= SEGMENTO 3 ================= -->
             <div class="segmento-3">
                 <h3>Números Hermanos</h3>
-                <p style="margin-bottom: 15px; font-size: 0.95rem;">Ingresa tu folio (del 1 al 200) para generar tus 5 números de participación.</p>
+                <p style="margin-bottom: 15px; font-size: 0.95rem;">Ingresa tu folio (del 1 al 250) para generar tus 4 números de participación.</p>
                 
                 <div class="generador-form">
-                    <input type="number" id="inputFolio" min="1" max="200" placeholder="Ej. 001">
+                    <input type="number" id="inputFolio" min="1" max="250" placeholder="Ej. 001">
                     <button onclick="generarHermanos()">Conocer</button>
                 </div>
 
@@ -395,35 +394,33 @@
 
     <!-- === LÓGICA DE JAVASCRIPT === -->
     <script>
-        function generarHermanos() {
-            // Obtenemos el valor del input y el contenedor de resultados
-            const input = document.getElementById('inputFolio').value;
-            const contenedorResultado = document.getElementById('resultado');
+    function generarHermanos() {
+        const input = document.getElementById('inputFolio').value;
+        const contenedorResultado = document.getElementById('resultado');
+        const numeroOriginal = parseInt(input, 10);
+
+        // Validación ajustada para 250 boletos
+        if (isNaN(numeroOriginal) || numeroOriginal < 1 || numeroOriginal > 250) {
+            contenedorResultado.innerHTML = '<span class="error">Por favor, ingresa un número válido entre 1 y 250.</span>';
+            return;
+        }
+
+        let hermanos = [];
+
+        // El ciclo ahora se repite 4 veces y suma 250 en cada iteración
+        for (let i = 0; i < 4; i++) {
+            let numeroGenerado = numeroOriginal + (i * 250);
             
-            // Convertimos el valor a un número entero
-            const numeroOriginal = parseInt(input, 10);
-
-            // Validación: Asegurar que el número esté entre 1 y 200
-            if (isNaN(numeroOriginal) || numeroOriginal < 1 || numeroOriginal > 200) {
-                contenedorResultado.innerHTML = '<span class="error">Por favor, ingresa un número válido entre 1 y 200.</span>';
-                return;
-            }
-
-            // Arreglo para guardar los 5 números
-            let hermanos = [];
-
-            // Generar los 5 números sumando 200 en cada iteración
-            for (let i = 0; i < 5; i++) {
-                let numeroGenerado = numeroOriginal + (i * 200);
-                
-                // Formateamos el número para que siempre tenga 3 dígitos (ej: 1 -> 001)
+            // Si el número llega a 1000, en términos de 3 dígitos de lotería se representa como 000
+            if (numeroGenerado === 1000) {
+                hermanos.push('000');
+            } else {
                 let numeroFormateado = String(numeroGenerado).padStart(3, '0');
-                
                 hermanos.push(numeroFormateado);
             }
+        }
 
-            // Mostrar el resultado separado por comas
-            contenedorResultado.innerHTML = hermanos.join(', ');
+        contenedorResultado.innerHTML = hermanos.join(', ');
         }
     </script>
 </body>
