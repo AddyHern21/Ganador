@@ -267,6 +267,12 @@
             color: #ffffff; 
         }
 
+        .anuncio-ganador h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffffff; 
+        }
+
         .anuncio-ganador p {
             font-size: 1.2rem;
             margin-bottom: 20px;
@@ -287,6 +293,23 @@
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .btn-pdf {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e53935; /* Color rojo característico de documentos PDF */
+            color: #ffffff;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-pdf:hover {
+            background-color: #c62828;
         }
     </style>
 </head>
@@ -383,8 +406,12 @@
 
         <!-- ================= SEGMENTO 4: ANUNCIO DEL GANADOR ================= -->
         <div class="anuncio-ganador">
-            <h3>Ganador</h3>
-            <p>En este espacio publicaremos el folio ganador una vez que se realice el sorteo.</p>
+            <h3>Ganadores</h3>
+            <h2>1er lugar </h2>
+            <p>066</p>
+            <h2>2do lugar </h2>
+            <p>022</p>
+            <p> <a href="superior2899.PDF" target="_blank" class="btn-pdf">📄 Ver Lista Oficial de Premios (PDF)</a> </p>
             <div class="fecha-sorteo">
                 <span>Fecha sorteo:</span>
                 <strong>Viernes 02 de Octubre de 2026</strong>
